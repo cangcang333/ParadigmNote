@@ -51,11 +51,21 @@ void *lsearch2(void *key, void *base, int n, int elemSize, int (*cmpfn)(void *, 
     return NULL;
 }
 
-int intCmp(void *elem1, void *elem2)
+int IntCmp(void *elem1, void *elem2)
 {
     int *ip1 = elem1;
     int *ip2 = elem2;
+
+    // Warning: *ip1 - *ip2 May overflow
     return (*ip1 - *ip2);
+}
+
+int StrCmp(void *vp1, void *vp2)
+{
+    char *s1 = *(char **)vp1;
+    char *s2 = *(char **)vp2;
+
+    return strcmp(s1, s2);
 }
 
 int main(int argc, char *argv[])
@@ -64,16 +74,20 @@ int main(int argc, char *argv[])
     int size = 6;
     int number = 7;
 
-    int *fund = lsearch2(&number, array, size, sizeof(int), intCmp);
+    int *fund = lsearch2(&number, array, size, sizeof(int), IntCmp);
     if (fund == NULL)
         printf("not fund\n");
     else
         printf("shit, fund it\n");
 
     
-    
-
-
+    char *notes[] = {"Ab", "F#", "B", "6b", "D"};
+    char *favoriteNote = "6b";
+    char **fund2 = lsearch2(&favoriteNote, notes, 5, sizeof(char *), StrCmp);
+    if (*fund2 == NULL)
+        printf("not fund2\n");
+    else
+        printf("shit, fund2 it\n");
 
     return 0;
 }
