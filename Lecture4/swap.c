@@ -27,10 +27,26 @@ void swap1(void *vp1, void *vp2, int size)
 
 int main(int argc, char *argv[])
 {
+    printf("sizeof(short) = %d\n", sizeof(short));
+    printf("sizeof(int) = %d\n", sizeof(int));
+
     int i = 44;
-    int s = 5;
+    short s = 5;
     swap1(&i, &s, sizeof(int));
+//    swap1(&i, &s, sizeof(short));
     printf("i = %d and s = %d\n", i, s);
     swap0(&i, &s);
     printf("i = %d and s = %d\n", i, s);
+
+
+    char *husband = strdup("Fred");
+    char *wife = strdup("Wilma");
+
+//    swap1(&husband, &wife, sizeof(char *));
+    swap1(&husband, &wife, sizeof(char *));
+
+    printf("husband is %s\n", husband);
+    printf("wife is %s\n", wife);
+
+    return 0;
 }
